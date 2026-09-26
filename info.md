@@ -1,6 +1,6 @@
-# 09/09/2026
+- 09/09/2026
 
-# 15/09/2026
+- 15/09/2026
 
 las máquinas virtuales de java y las de android no son iguales, aunq la de android proviene de la de java.
 
@@ -38,3 +38,68 @@ Hay 2 ejemplos en el campus virtual con circulos que se mueven. Pinta lo mismo e
 
 Hay que hacer 2 motores que abstraiga de que fufe en ambas lo mismo.
 Ambos motores implementan intefaz comun de motor.
+
+- 22/09/2026
+
+La semana que viene son las elecciones de delegado
+
+# Arquitectura P1:
+
+Punto de entrada android y desktop
+
+Engine (api, interfaces)
+- AndroidEngine
+- DesktopEngine
+
+Game
+
+# Canvas
+
+## Desktop
+
+- mapa de bits --> BufferStrategy (Usaremos doble o triple buffer y cada frame cambiamos y pintamos en el siguiente). Codigo en diapos
+- lienzo --> JFrame
+- pintura --> Graphics2D, awt.Image, wat.Font
+- primitivas de dibujo --> Graphics2D
+
+## Android
+
+- mapa de bits --> surfaceHolder
+- lienzo --> SurfaceView
+- pintura --> Paint, Bitmap, 
+- primitivas de dibujo --> Canvas
+
+# Módulos
+
+- game
+- android engine
+- desktop engine
+- base engine
+- android app
+- desktop app
+
+```java
+public class DesktopEngine implements Engine, Runnable{
+
+    JFrame frame;
+    BufferStrategy bf;
+    Graphics2D g2d;
+    Scene currentScene;
+    volatile boolean isRunning;
+    Thread renderThread;
+
+    public DesktopEngine(JFrame frame){
+        thus.frame = frame;
+        this.bf = this.frame.getBufferStrategy();
+        this.g2d = (Graphics2D) this.bf.getDrawGraphics();
+    }
+
+    @Override
+    public void run(){
+
+    }
+}
+```
+
+__ambos motores necesitan un método resume y pause__
+estos inician y terminan el hilo de renderizado
